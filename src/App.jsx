@@ -6,8 +6,6 @@ const supabase = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxodXJucGF2YXN4aG5hZHJveXVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1OTEwMDksImV4cCI6MjA4OTE2NzAwOX0.6T9YWspyyV4uSghyKBlIWnbhBPrUI8Hob4b1sJxi8B0"
 );
 
-const BEEHIIV_API_KEY = "0kAhrKW6xBpeeYodzNLSCBWi6Bkyqu2D8vhiGHhBjDKcIr7HZdVlqfeTLvgzbRnH";
-const BEEHIIV_PUB_ID = "pub_11bdd8b0-e6f3-4603-9964-e945f2d90501";
 
 const STYLE = `
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap');
@@ -224,21 +222,11 @@ export default function NailCapture() {
 
       // If email, also subscribe to Beehiiv
       if (mode === "email") {
-        const beehiivRes = await fetch(
-          `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUB_ID}/subscriptions`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${BEEHIIV_API_KEY}`,
-            },
-            body: JSON.stringify({
-              email: value.trim(),
-              reactivate_existing: true,
-              send_welcome_email: true,
-            }),
-          }
-        );
+        const beehiivRes = await fetch('/api/subscribe-beehiiv', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: value.trim() }),
+        });
 
         if (!beehiivRes.ok) {
           // Supabase write succeeded - don't block success on Beehiiv
@@ -276,7 +264,7 @@ export default function NailCapture() {
         <h1>Know<em>Tomorrow's</em>Count</h1>
 
         <p className="sub">
-          Every day I stand on nails <strong>one second per follower gained.</strong> Get tomorrow's number before I post it â straight to your inbox or phone.
+          Every day I stand on nails <strong>one second per follower gained.</strong> Get tomorrow's number before I post it — straight to your inbox or phone.
         </p>
 
         <div className="counter-bar">
@@ -310,7 +298,7 @@ export default function NailCapture() {
           </div>
         ) : (
           <div className="success">
-            <div className="success-icon">ð©¸</div>
+            <div className="success-icon">Ã°ÂÂ©Â¸</div>
             <h3>You're In</h3>
             <p>Tomorrow's count comes to you first.<br />Every follower you bring adds one more second.</p>
           </div>
